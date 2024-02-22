@@ -6,7 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 
 const App: React.FC = () => {
     return (
-        <BrowserRouter basename={process.env.REACT_APP_BASE_URL}>
+        <BrowserRouter>
             <Home/>
         </BrowserRouter>
     )
