@@ -28,7 +28,6 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        working-directory: doc
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Build
         run: npm run build
