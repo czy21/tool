@@ -2,7 +2,7 @@ import React from "react"
 
 export interface MenuModel {
     name: string,
-    path: string
+    path?: string
     icon?: React.ReactNode
     children?: Array<MenuModel>
 }
@@ -10,15 +10,14 @@ export interface MenuModel {
 const menus: MenuModel[] = [
     {
         name: "CF优选",
-        path: "/cf-best",
         children: [
             {
                 name: "CDN",
-                path: "cdn",
+                path: "cf-best/cdn",
             },
             {
                 name: "server",
-                path: "server"
+                path: "cf-best/server"
             }
         ]
     }

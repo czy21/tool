@@ -2,34 +2,31 @@ import React from "react";
 
 import {Layout, Menu} from 'antd';
 import {Link} from "react-router-dom";
-import stub from "@/init";
-import menu from "@/menu";
+import menus, {MenuModel} from "@/menu";
 
 
-function recursiveMenu(routes: any, parentPath?: string) {
-    return routes.map((item: any, index: any) => {
-        if (item.children) {
+function recursiveMenu(menus: MenuModel[]) {
+    return menus.map((t: MenuModel, i: number) => {
+        if (t.children) {
             return (
                 <Menu.SubMenu
-                    key={index}
+                    key={i}
                     title={
                         <span>
-                            {item.icon}
-                            <span>{item.name}</span>
+                            {t.icon}
+                            <span>{t.name}</span>
                         </span>
                     }
                 >
-                    {recursiveMenu(item.children, item.path)}
+                    {recursiveMenu(t.children)}
                 </Menu.SubMenu>
             )
         }
         return (
-            <Menu.Item
-                key={index}
-            >
-                {item.icon}
-                <span>{item.name}</span>
-                <Link to={parentPath != null ? stub.ref.lodash.join([parentPath, item.path], "/") : item.path}/>
+            <Menu.Item key={i}>
+                {t.icon}
+                <span>{t.name}</span>
+                {t.path && <Link to={t.path}/>}
             </Menu.Item>
         )
     })
@@ -49,7 +46,7 @@ export default class Header extends React.Component<any, any> {
                 }}
             >
                 <Menu>
-                    {recursiveMenu(menu)}
+                    {recursiveMenu(menus)}
                 </Menu>
             </Layout.Header>
         )
