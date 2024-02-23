@@ -1,5 +1,4 @@
 import React from "react"
-import stub from "@/init";
 
 export interface MenuModel {
     name: string,
