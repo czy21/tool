@@ -57,9 +57,8 @@ const CFBestCDN: React.FC = () => {
                                  total: data.total,
                                  current: data.page,
                                  pageSize: data.pageSize,
-                                 showTotal: ((t: any, r: any) => `第 ${r[0]}-${r[1]} 条/总共 ${t} 条`),
-                                 onChange: (pageIndex, pageSize) =>
-                                     setQuery({...query, "page": pageIndex, "pageSize": pageSize})
+                                 showTotal: ((total: number, range: [number, number]) => `第 ${range[0]}-${range[1]} 条/总共 ${total} 条`),
+                                 onChange: (page, pageSize) => setQuery({...query, "page": page, "pageSize": pageSize})
                              }}
         />
     )
