@@ -16,7 +16,7 @@ const menus: MenuModel[] = [
                 path: "cf-best/cdn",
             },
             {
-                name: "server",
+                name: "Server",
                 path: "cf-best/server"
             }
         ]
