@@ -37,7 +37,7 @@ jobs:
           path: ./build
   deploy:
     needs: build
-    uses: czy21/action/.github/workflows/deploy-web.yml@main
+    uses: czy21/share/.github/workflows/deploy-web.yml@main
     with:
       web_name: tool
     secrets: inherit
