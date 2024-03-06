@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import menus, { MenuModel } from "@/menu";
 
 
-function recursiveMenu(menus: MenuModel[]) {
+function recursiveMenu(menus: MenuModel[], parentKey?: string) {
     return menus.map((t: MenuModel, i: number) => {
+        const key = parentKey ? `${parentKey}-${i}` : `${i}`
         if (t.children) {
             return (
                 <Menu.SubMenu
-                    key={i}
+                    key={key}
                     title={
                         <span>
                             {t.icon}
@@ -18,12 +19,12 @@ function recursiveMenu(menus: MenuModel[]) {
                         </span>
                     }
                 >
-                    {recursiveMenu(t.children)}
+                    {recursiveMenu(t.children, key)}
                 </Menu.SubMenu>
             )
         }
         return (
-            <Menu.Item key={i}>
+            <Menu.Item key={key}>
                 {t.icon}
                 <span>{t.name}</span>
                 {t.path && <Link to={t.path} target={t.redirect ? "_blank" : ""} />}
