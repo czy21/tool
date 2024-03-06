@@ -5,6 +5,7 @@ export interface MenuModel {
     path?: string
     icon?: React.ReactNode
     children?: Array<MenuModel>
+    redirect?: boolean
 }
 
 const menus: MenuModel[] = [
@@ -20,6 +21,11 @@ const menus: MenuModel[] = [
                 path: "cf-best/server"
             }
         ]
+    },
+    {
+        name: "IT-Tools",
+        path: "https://it-tools.tech/",
+        redirect: true
     }
 ];
 export default menus

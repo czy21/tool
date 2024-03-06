@@ -1,6 +1,6 @@
 import React from "react";
 import stub from "@/init"
-import {Form, Table, TreeSelect} from "antd";
+import {Button, Form, Table, TreeSelect} from "antd";
 
 const columns = [
     {
@@ -40,6 +40,9 @@ const columns = [
     },
 ];
 
+const locationOnChange = (value: any, label: any, extra: any) => {
+    console.log(extra)
+}
 const CFBestCDN: React.FC = () => {
 
     const [data, setData] = stub.ref.react.useState<any>({})
@@ -55,26 +58,33 @@ const CFBestCDN: React.FC = () => {
         setQuery(q)
         stub.api.post("cf-best/cdn/page", stub.ref.lodash.omit(q, "total")).then((t: any) => setData(t.data.data))
     }
-
+    const [filter] = stub.ref.antd.Form.useForm();
     return (
         <div>
             <Form
                 name="filter"
-                labelCol={{span: 8}}
-                wrapperCol={{span: 16}}
-                style={{maxWidth: 600}}
+                form={filter}
                 autoComplete="off"
+                layout={"inline"}
             >
-                <TreeSelect
-                    showSearch
-                    style={{width: '50%'}}
-                    dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-                    allowClear
-                    treeCheckable
-                    showCheckedStrategy={"SHOW_PARENT"}
-                    // onChange={onChange}
-                    treeData={countryTree}
-                />
+                <Form.Item label={"位置"} name={"location"} style={{width: "20%"}}>
+                    <TreeSelect
+                        showSearch
+                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                        allowClear
+                        treeCheckable
+                        showCheckedStrategy={"SHOW_PARENT"}
+                        onChange={locationOnChange}
+                        treeData={countryTree}
+                    />
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" onClick={() => {
+                        console.log(filter.getFieldValue("location"))
+                    }}>
+                        查询
+                    </Button>
+                </Form.Item>
             </Form>
             <Table dataSource={data.list} columns={columns}
                    pagination={{

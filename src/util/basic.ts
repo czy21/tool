@@ -10,6 +10,10 @@ interface URI {
     path: string
 }
 
+export function validateForm(form: Promise<any>, successCallback: (value: any) => void, errorCallback?: (err: any) => void) {
+    form.then(value => successCallback(value)).catch(err => errorCallback && errorCallback(err))
+}
+
 export function matchUrl(url: string): URI {
     let ret: any = urlPattern.exec(url)
     console.log(ret)
