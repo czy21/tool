@@ -7,7 +7,7 @@ import menus, {MenuModel} from "@/menu";
 
 function recursiveMenu(menus: MenuModel[], parentKey?: string) {
     return menus.map((t: MenuModel, i: number) => {
-        const key = parentKey ? `${parentKey}-${i}` : `${i}`
+        let key = parentKey ? `${parentKey}-${i}` : `${i}`
         if (t.children) {
             return (
                 <Menu.SubMenu
