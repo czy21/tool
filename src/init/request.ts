@@ -29,7 +29,7 @@ function apiAxios(method: Method, url: string, params: any, errorCallBack?: (err
             url: url,
             data: method === 'POST' || method === 'PUT' ? params : null,
             params: method === 'GET' || method === 'DELETE' ? params : null
-        }).then(res => resolve(res), error => {
+        }).then(res => resolve(res)).catch(error => {
             switch (error?.response.status) {
                 case 504:
                     message.error("网络超时")
@@ -37,7 +37,7 @@ function apiAxios(method: Method, url: string, params: any, errorCallBack?: (err
             if (errorCallBack) {
                 errorCallBack(error)
             }
-        }).catch(error => reject(error))
+        })
     })
 }
 
