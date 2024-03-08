@@ -48,12 +48,15 @@ const CFBestCDN: React.FC = () => {
     const [countryTree, setCountryTree] = stub.ref.react.useState<any>([])
 
     stub.ref.react.useEffect(() => {
-        stub.api.get("cf-best/cdn/countryTree").then((t: any) => setCountryTree(t.data.data))
+        stub.api.get("cf-best/cdn/countryTree").then((t: any) => setCountryTree(t?.data.data))
         handleSearch()
     }, [])
 
     const handleSearch = (q: {} = query) => {
-        stub.api.post("cf-best/cdn/page", stub.ref.lodash.omit(q, "total")).then((t: any) => setData(t.data.data))
+        stub.api.post("cf-best/cdn/page", stub.ref.lodash.omit(q, "total")).then((t: any) => setData(t?.data.data))
+    }
+    const handleExport = (q: {} = query) => {
+        stub.api.post("cf-best/cdn/page", stub.ref.lodash.omit(q, "total")).then((t: any) => setData(t?.data.data))
     }
     const [filter] = stub.ref.antd.Form.useForm();
     return (
@@ -80,13 +83,22 @@ const CFBestCDN: React.FC = () => {
                         查询
                     </Button>
                 </Form.Item>
+                <Form.Item>
+                    <Button type="primary" onClick={() => {
+                        const q = stub.ref.lodash.omit(query, "page", "pageSize")
+                        setQuery(q)
+                        handleExport(q)
+                    }}>
+                        导出
+                    </Button>
+                </Form.Item>
             </Form>
-            <Table dataSource={data.list} columns={columns}
+            <Table dataSource={data?.list} columns={columns}
                    rowKey={(r: any) => r.id}
                    pagination={{
-                       total: data.total,
-                       current: data.page,
-                       pageSize: data.pageSize,
+                       total: data?.total,
+                       current: data?.page,
+                       pageSize: data?.pageSize,
                        showTotal: ((total: number, range: [number, number]) => `第 ${range[0]}-${range[1]} 条/总共 ${total} 条`),
                        onChange: (page, pageSize) => {
                            const q = {...query, "page": page, "pageSize": pageSize}
