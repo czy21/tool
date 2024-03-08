@@ -72,7 +72,11 @@ const CFBestCDN: React.FC = () => {
                     />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" onClick={() => handleSearch()}>
+                    <Button type="primary" onClick={() => {
+                        const q = stub.ref.lodash.omit(query, "page", "pageSize")
+                        setQuery(q)
+                        handleSearch(q)
+                    }}>
                         查询
                     </Button>
                 </Form.Item>
