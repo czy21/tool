@@ -1,6 +1,7 @@
 import React from "react";
 import stub from "@/init"
 import {Button, Cascader, Form, Table} from "antd";
+import CFBestCDNStat from "@v/cf-best/cdn/Stat";
 
 const columns = [
     {
@@ -61,6 +62,7 @@ const CFBestCDN: React.FC = () => {
     const [filter] = stub.ref.antd.Form.useForm();
     return (
         <div>
+            <CFBestCDNStat/>
             <Form
                 name="filter"
                 form={filter}
