@@ -1,6 +1,6 @@
 import React from "react";
 import stub from "@/init"
-import {Button, Cascader, Form, Table} from "antd";
+import {Button, Cascader, Col, Form, Input, Row, Space, Table} from "antd";
 import CFBestCDNStat from "@v/cf-best/cdn/Stat";
 
 const columns = [
@@ -67,33 +67,47 @@ const CFBestCDN: React.FC = () => {
                 name="filter"
                 form={filter}
                 autoComplete="off"
-                layout={"inline"}
             >
-                <Form.Item label={"位置"} name={"locations"} style={{width: "20%"}}>
-                    <Cascader
-                        options={countryTree}
-                        multiple
-                        onChange={(value: any) => setQuery({...query, "locations": value})}
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" onClick={() => {
-                        const q = stub.ref.lodash.omit(query, "page", "pageSize")
-                        setQuery(q)
-                        handleSearch(q)
-                    }}>
-                        查询
-                    </Button>
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" onClick={() => {
-                        const q = stub.ref.lodash.omit(query, "page", "pageSize")
-                        setQuery(q)
-                        handleExport(q)
-                    }}>
-                        导出
-                    </Button>
-                </Form.Item>
+                <Row gutter={24} style={{width: "100%"}}>
+                    <Col span={6}>
+                        <Form.Item label={"位置"} name={"locations"}>
+                            <Cascader
+                                options={countryTree}
+                                multiple
+                                showSearch
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                        <Form.Item label={"IP"} name={"valueStr"}>
+                            <Input/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={3}>
+                        <Space size="small">
+                            <Button type="primary" onClick={() => {
+                                filter.resetFields()
+                                setQuery({})
+                            }}>
+                                重置
+                            </Button>
+                            <Button type="primary" onClick={() => {
+                                const q = stub.ref.lodash.omit({...query,...filter.getFieldsValue()}, "page", "pageSize")
+                                setQuery(q)
+                                handleSearch(q)
+                            }}>
+                                查询
+                            </Button>
+                            <Button type="primary" onClick={() => {
+                                const q = stub.ref.lodash.omit({...query,...filter.getFieldsValue()}, "page", "pageSize")
+                                setQuery(q)
+                                handleExport(q)
+                            }}>
+                                导出
+                            </Button>
+                        </Space>
+                    </Col>
+                </Row>
             </Form>
             <Table dataSource={data?.list} columns={columns}
                    rowKey={(r: any) => r.id}

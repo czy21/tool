@@ -37,6 +37,7 @@ const CFBestCDNStat: React.FC = () => {
                 },
                 yAxis: {
                     type: 'value',
+                    splitNumber: 10
                 },
                 series: t?.data.data.series.map((p: any) => {
                     return {...p, type: "line", stack: 'Total'}
