@@ -57,7 +57,9 @@ const CFBestCDN: React.FC = () => {
         stub.api.post("cf-best/cdn/page", stub.ref.lodash.omit(q, "total")).then((t: any) => setData(t?.data.data))
     }
     const handleExport = (q: {} = query) => {
-        stub.api.post("cf-best/cdn/page", stub.ref.lodash.omit(q, "total")).then((t: any) => setData(t?.data.data))
+        stub.api.post("cf-best/cdn/export", stub.ref.lodash.omit(q, "total"),{responseType: "blob"}).then((t: any) => {
+            stub.util.basic.downloadFile(t)
+        })
     }
     const [filter] = stub.ref.antd.Form.useForm();
     return (

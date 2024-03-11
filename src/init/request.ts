@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, {AxiosRequestConfig} from 'axios'
 import {message} from "antd"
 
 enum Method {
@@ -9,8 +9,7 @@ enum Method {
 }
 
 const service = axios.create({
-    baseURL: '/api',
-    timeout: 5000,
+    baseURL: '/api'
 });
 service.interceptors.request.use(
     request => request,
@@ -22,13 +21,14 @@ service.interceptors.response.use(
     error => Promise.reject(error)
 );
 
-function apiAxios(method: Method, url: string, params: any, errorCallBack?: (error: any) => void) {
+function apiAxios(method: Method, url: string, params: any, config?: AxiosRequestConfig, errorCallBack?: (error: any) => void) {
     return new Promise((resolve, reject) => {
         service({
             method: method,
             url: url,
             data: method === 'POST' || method === 'PUT' ? params : null,
-            params: method === 'GET' || method === 'DELETE' ? params : null
+            params: method === 'GET' || method === 'DELETE' ? params : null,
+            ...config
         }).then(res => resolve(res)).catch(error => {
             switch (error?.response.status) {
                 case 504:
@@ -42,16 +42,16 @@ function apiAxios(method: Method, url: string, params: any, errorCallBack?: (err
 }
 
 export default {
-    get: (url: string, params?: any, errorCallBack?: (error: any) => void) => {
-        return apiAxios(Method.GET, url, params, errorCallBack)
+    get: (url: string, params?: any, config?: AxiosRequestConfig, errorCallBack?: (error: any) => void) => {
+        return apiAxios(Method.GET, url, params, config, errorCallBack)
     },
-    post: (url: string, params?: any, errorCallBack?: (error: any) => void) => {
-        return apiAxios(Method.POST, url, params, errorCallBack)
+    post: (url: string, params?: any, config?: AxiosRequestConfig, errorCallBack?: (error: any) => void) => {
+        return apiAxios(Method.POST, url, params, config, errorCallBack)
     },
-    put: (url: string, params?: any, errorCallBack?: (error: any) => void) => {
-        return apiAxios(Method.PUT, url, params, errorCallBack)
+    put: (url: string, params?: any, config?: AxiosRequestConfig, errorCallBack?: (error: any) => void) => {
+        return apiAxios(Method.PUT, url, params, config, errorCallBack)
     },
-    delete: (url: string, params?: any, errorCallBack?: (error: any) => void) => {
-        return apiAxios(Method.DELETE, url, params, errorCallBack)
+    delete: (url: string, params?: any, config?: AxiosRequestConfig, errorCallBack?: (error: any) => void) => {
+        return apiAxios(Method.DELETE, url, params, config, errorCallBack)
     }
 };
