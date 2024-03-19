@@ -47,7 +47,7 @@ const CFBestCDNStat: React.FC = () => {
         stub.api.get("cf-best/cdn/getAggCountry").then((t: any) => {
             todayChart.setOption({
                 title: {
-                    text: "今日IP数"
+                    text: "最新IP数"
                 },
                 tooltip: {
                     trigger: 'item'
