@@ -10,6 +10,10 @@ export interface MenuModel {
 
 const menus: MenuModel[] = [
     {
+        name: "首页",
+        path: "/",
+    },
+    {
         name: "CF优选",
         children: [
             {
