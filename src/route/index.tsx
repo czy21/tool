@@ -5,7 +5,7 @@ import CFBestCDN from "@v/cf-best/cdn";
 
 const routes: RouteObject[] = [
     {
-        path: "cf-best/cdn",
+        path: "/",
         element: <Index />
     },
     {
